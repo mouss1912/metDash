@@ -1,42 +1,15 @@
-package com.exmple.model;
+package com.exmple.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import com.exmple.dto.RegisterDtoRequest;
-
-@Entity
-public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UtilisateurWithPasswordDto {
 	private Integer id;
 	private String nom;
 	private String prenom;
 	private String username;
 	private String email;
 	private String motDePasse;
-	
-	public User() {
-		
-	}
 
-	public User(Integer id, String nom, String prenom, String username, String email, String motDePasse) {
-		this.id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.username = username;
-		this.email = email;
-		this.motDePasse = motDePasse;
-	}
-
-	public User(RegisterDtoRequest dtoRequest) {
-		this.nom = dtoRequest.getNom();
-		this.prenom = dtoRequest.getPrenom();
-		this.username = dtoRequest.getUsername();
-		this.email = dtoRequest.getEmail();
-		this.motDePasse = dtoRequest.getPassword();
+	public UtilisateurWithPasswordDto() {
+		super();
 	}
 
 	public Integer getId() {
@@ -86,6 +59,8 @@ public class User {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
+
+	
 	
 	
 }
