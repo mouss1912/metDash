@@ -35,6 +35,14 @@ public class MeteoService {
 		return this.meteoRepository.findByCommuneId(commune.getId());
 	}
 
+	public List<Meteo> getMeteos() {
+		return this.meteoRepository.findAll().subList(4, 10);
+	}
+	
+	public List<Meteo> meteoDuJour() {
+		return this.meteoRepository.findLastMeteo();
+	}
+	
 	public Meteo getLastMeteoCommuneById(int idCommune) throws MeteoIntrouvableException {
 
 		Optional<Meteo> lastMeteo = this.meteoRepository.findLastMeteoByCommune(idCommune);

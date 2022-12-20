@@ -22,4 +22,7 @@ public interface MeteoRepo extends JpaRepository<Meteo, Integer> {
 	public Optional<Meteo> findLastMeteoByCommune(@Param ("communeId") Integer communeId);
 	
 	public List<Meteo> findByDateBetweenAndCommuneIdOrderByDateDesc(LocalDateTime dateDebut, LocalDateTime dateFin, Integer communeId);
+	
+	@Query(value="SELECT * FROM meteo  ORDER BY meteo.date DESC LIMIT 15", nativeQuery = true)
+	public List<Meteo> findLastMeteo();
 }

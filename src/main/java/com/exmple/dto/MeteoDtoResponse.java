@@ -1,6 +1,7 @@
 package com.exmple.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.exmple.model.Meteo;
 
@@ -25,6 +26,8 @@ public class MeteoDtoResponse {
 	
 	private int idCommune;
 	
+	private String nomCommune;
+	
 	public MeteoDtoResponse(Meteo meteoParam) {
 		
 		this.id = meteoParam.getId();
@@ -33,6 +36,32 @@ public class MeteoDtoResponse {
 		this.cumulPluie = meteoParam.getCumulPluie();
 		this.tempatureSol = meteoParam.getTempatureSol();
 		this.idCommune = meteoParam.getCommune().getId();
+		this.nomCommune = meteoParam.getCommune().getNomCommune();
+	}
+
+	public MeteoDtoResponse(List<Meteo> fromRepo) {
+		// TODO Auto-generated constructor stub
+		fromRepo.forEach(m -> {
+		this.id = m.getId();
+		this.date = m.getDate();
+		this.vitesseMoyVent = m.getVitesseMoyVent();
+		this.cumulPluie = m.getCumulPluie();
+		this.tempatureSol = m.getTempatureSol();
+		this.idCommune = m.getCommune().getId();
+		this.nomCommune = m.getCommune().getNomCommune();
+		});
+	}
+
+	public String getNomCommune() {
+		return nomCommune;
+	}
+
+	public void setNomCommune(String nomCommune) {
+		this.nomCommune = nomCommune;
+	}
+
+	public MeteoDtoResponse() {
+		super();
 	}
 
 	public Integer getId() {
