@@ -17,6 +17,9 @@ import com.exmple.dto.Forecast;
 import com.exmple.model.Commune;
 import com.exmple.model.Meteo;
 
+import skaro.pokeapi.resource.berry.Berry;
+import skaro.pokeapi.resource.pokemon.Pokemon;
+
 
 
 @Service
@@ -37,6 +40,21 @@ public class ExtractMeteoApiManager {
 		this.restTemplate = restTemplate;
 	}
 	
+	public void extractPokemon() {
+		
+		long start = System.currentTimeMillis();
+		LOG.info("Debut de Extraction API Pokemon");
+	
+		// RECUPERER TOP 50 VILLE	
+		//List<Commune> communesList = this.communeService.getTop50Population();
+		
+		this.testPokemon(restTemplate);
+		long tempsExecution = System.currentTimeMillis() - start;
+
+		LOG.info("Fin Extraction API Pokmon");
+		LOG.info("Temps d'execution " + tempsExecution);
+		LOG.info("--------------------------------------");
+	}
 	
 	public void extract() {
 		
@@ -114,6 +132,34 @@ public class ExtractMeteoApiManager {
 		String date = this.dateUtils.parseDate(dateAtraiter);
 		String newDate = date.replace("T", " ");
 		return LocalDateTime.parse(newDate, formatter);
+	}
+	
+	
+	public void testPokemon(RestTemplate restTemplate) {
+		String [] mesBerry = {"cheri", "chesto", "pecha"};
+
+		String [] mesPokemon = {"pikachu", "clefairy","pignite", "pachirisu"};
+		
+			//String url = "https://pokeapi.co/api/v2/berry/1/";
+			//String urlPokemon = "https://pokeapi.co/api/v2/pokemon/pikachu/";
+			
+		
+		for(String berryRe  : mesBerry) {
+				String url = "https://pokeapi.co/api/v2/berry/" + berryRe ;
+				Berry berry = restTemplate.getForObject(url, Berry.class);
+				System.out.println("reponse = " + berry.getName());
+				
+			}
+			
+			
+			for(String nomPok  : mesPokemon) {
+				String urlPokemon = "https://pokeapi.co/api/v2/pokemon/" + nomPok;
+
+				Pokemon pokemon = restTemplate.getForObject(urlPokemon, Pokemon.class);
+				System.out.println( pokemon.getName() + " " + pokemon.getHeight() +  " " + pokemon.getOrder() +  " " + pokemon.getForms().get(0).getName());
+				
+			}
+				
 	}
 	
 
